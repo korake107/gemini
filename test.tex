@@ -102,6 +102,102 @@ $x \neq 0$ の領域では傾きは明らかに $0$ ですが、$x=0$ での「�
 \]
 
 これが、ステップ関数を（超関数の意味で）微分するとデルタ関数になる理由です。
+\\
+\\
+まず、場の理論ではなく通常の解析力学（点粒子系）において、対称性のパラメータが複数個 $\epsilon^i$ ある場合へ、保存量 (Noether charge) の定義を拡張します。
+
+\paragraph{設定}
+\begin{itemize}
+    \item 座標: $q^a(t)$
+    \item 対称性変換: $\delta q^a = \epsilon^i h^a_i(q)$ \\
+    （ここで $h^a_i(q)$ は、変換の形を決める関数です）
+    \item Lagrangian $L(q^a, \dot{q}^a)$ はこの変換に対して不変 ($\delta L = 0$) であるとします（全微分項は無視）。
+\end{itemize}
+
+\paragraph{保存量 (Charge) の定義}
+単一パラメータの場合の保存量 $Q = p_a \frac{\delta q^a}{\epsilon}$ を、パラメータ $\epsilon^i$ ごとの成分 $Q_i$ に一般化します。
+運動量を $p_a = \frac{\partial L}{\partial \dot{q}^a}$ とすると、各 $i$ に対する保存量は以下のように定義できます。
+\begin{equation}
+    Q_i = p_a \frac{\partial (\delta q^a)}{\partial \epsilon^i} = \frac{\partial L}{\partial \dot{q}^a} h^a_i(q)
+\end{equation}
+
+\paragraph{保存則の確認}
+これらが保存量であることを確認するために、時間微分 $\frac{d Q_i}{dt}$ を計算します。
+\begin{equation}
+    \frac{d Q_i}{dt} = \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}^a} \right) h^a_i(q) + \frac{\partial L}{\partial \dot{q}^a} \frac{d}{dt} (h^a_i(q))
+\end{equation}
+Euler-Lagrange方程式 $\frac{d}{dt} (\frac{\partial L}{\partial \dot{q}^a}) = \frac{\partial L}{\partial q^a}$ を用いると、以下のようになります。
+\begin{equation}
+    \frac{d Q_i}{dt} = \frac{\partial L}{\partial q^a} h^a_i + \frac{\partial L}{\partial \dot{q}^a} \dot{h}^a_i
+\end{equation}
+ここで、$\delta q^a = \epsilon^i h^a_i$ および $\delta \dot{q}^a = \epsilon^i \dot{h}^a_i$ であることを思い出すと、右辺は Lagrangian の変分 $\delta L$ の係数部分になっています。
+\begin{equation}
+    \delta L = \frac{\partial L}{\partial q^a} \delta q^a + \frac{\partial L}{\partial \dot{q}^a} \delta \dot{q}^a = \epsilon^i \left( \frac{\partial L}{\partial q^a} h^a_i + \frac{\partial L}{\partial \dot{q}^a} \dot{h}^a_i \right)
+\end{equation}
+対称性があるため $\delta L = 0$ です。任意の $\epsilon^i$ に対してこれが成り立つので、括弧の中身は0でなければなりません。したがって、
+\begin{equation}
+    \frac{d Q_i}{dt} = 0
+\end{equation}
+となり、定義した $Q_i$ が保存量であることが示されました。
+
+\subsection*{(b) 空間次元がない「世界」への適用}
+
+次に、問題文にある場の理論のセットアップを、「空間次元がない (no spatial dimensions)」場合に適用して解釈します。
+
+\paragraph{1. インデックス $\alpha$ の取りうる値}
+通常、場の理論では $\xi^\alpha$ は時空の座標 ($\xi^0$ が時間、$\xi^1 \dots \xi^k$ が空間) を表します。
+空間次元がない場合、座標は「時間」にあたる $\xi^0$ しか存在しません。
+したがって、インデックス $\alpha$ が取りうる値は \textbf{$0$ のみ} です。
+
+\paragraph{2. 各式の解釈と(a)との比較}
+この極限において、場の理論の変数は点粒子の解析力学の変数に以下のように対応します。
+\begin{itemize}
+    \item 座標: $\xi^0 \rightarrow t$ （時間）
+    \item 場: $\phi^a(\xi) \rightarrow q^a(t)$ （一般化座標）
+    \item 微係数: $\partial_0 \phi^a \rightarrow \dot{q}^a$ （速度）
+    \item Lagrangian密度: $\mathcal{L} \rightarrow L$ （Lagrangian）\\
+    （※空間積分がないため、密度 $\mathcal{L}$ がそのまま $L$ になります）
+\end{itemize}
+
+与えられた式 (8.22), (8.23), (8.25) をこの対応で書き換えます。
+
+\subparagraph{式 (8.22) の解釈 (Current)}
+$\alpha = 0$ の場合のみを考えます。
+\begin{equation}
+    \epsilon^i j_i^0 \equiv \frac{\partial \mathcal{L}}{\partial (\partial_0 \phi^a)} \delta \phi^a
+\end{equation}
+これを点粒子の記法に直すと、
+\begin{equation}
+    \epsilon^i j_i^0 = \frac{\partial L}{\partial \dot{q}^a} \delta q^a
+\end{equation}
+したがって、カレントの第0成分 $j_i^0$ は、(a)で定義した保存量 $Q_i$ そのものであることがわかります。
+\begin{equation}
+    j_i^0 = \frac{\partial L}{\partial \dot{q}^a} \frac{\delta q^a}{\epsilon^i} = Q_i
+\end{equation}
+
+\subparagraph{式 (8.23) の解釈 (Conservation law)}
+$\alpha$ の和は0のみなので、
+\begin{equation}
+    \partial_0 j_i^0 = 0
+\end{equation}
+これは、時間の偏微分（ここでは全微分と同じ）が0ということなので、
+\begin{equation}
+    \frac{d Q_i}{dt} = 0
+\end{equation}
+となり、(a)で確認した「電荷 (Charge) の保存」と完全に一致します。
+
+\subparagraph{式 (8.25) の解釈 (Charge definition)}
+\begin{equation}
+    Q_i = \int d\xi^1 \dots d\xi^k j_i^0
+\end{equation}
+空間次元がない ($k=0$) ため、積分する空間座標が存在しません（積分測度が1、あるいは積分記号が不要）。よって、
+\begin{equation}
+    Q_i = j_i^0
+\end{equation}
+となります。
+
+\paragraph{結論}
+空間次元がない場合、場の理論における「Noetherカレント $j_i^\alpha$」は、解析力学における「Noetherチャージ $Q_i$」そのもの（のカレント第0成分）に帰着します。また、カレントの保存則 $\partial_\alpha j^\alpha = 0$ は、そのままチャージの保存則 $\dot{Q} = 0$ に対応します。
 
 \end{document}
 \end{document}
